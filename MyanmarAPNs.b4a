@@ -1,0 +1,227 @@
+﻿Version=6.5
+NumberOfModules=6
+Module1=Telenor
+Module2=Ooredoo
+Module3=MecTel
+Module4=MPTCDMA
+Module5=MPTGSM
+Module6=Starter
+Build1=Default,com.htetznaing.mmanps
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~'************ Firebase Ads ************~\n~AddApplicationText(~\n~  <activity~\n~  android:name="com.google.android.gms.ads.AdActivity"~\n~  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"~\n~  android:theme="@android:style/Theme.Translucent" />~\n~  <activity android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"~\n~  android:theme="@style/Theme.IAPTheme"/>~\n~)~\n~'************ Firebase Ads (end) ************~\n~~\n~'************ Google Play Services Base ************~\n~AddApplicationText(~\n~   <activity android:name="com.google.android.gms.common.api.GoogleApiActivity"~\n~  android:theme="@android:style/Theme.Translucent.NoTitleBar"~\n~  android:exported="false"/>~\n~    <meta-data~\n~  android:name="com.google.android.gms.version"~\n~  android:value="@integer/google_play_services_version" />~\n~)~\n~'************ Google Play Services Base (end) ************~\n~
+IconFile=
+NumberOfFiles=6
+File1=icon.png
+File2=lay1.bal
+File3=mectel.jpg
+File4=mpt.png
+File5=ooredoo.png
+File6=telenor.png
+NumberOfLibraries=6
+Library1=core
+Library2=clipboard
+Library3=floatingactionbutton
+Library4=xmllayoutbuilder
+Library5=firebaseadmob
+Library6=phone
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: Myanmar APNs
+	#VersionCode: 1
+	#VersionName: 1.1
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+	#AdditionalRes: C:\Users\Ht3tzN4ing\Documents\B4A Projects\Temp Mail\FloatingButton, de.amberhome.objects.floatingactionbutton
+	#AdditionalRes: ..\resource
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Dim ad1,ad2 As Timer
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	'These variables can only be accessed from this module.
+Dim b1,b2,b3,b4,b5 As Button
+Dim bbg As ColorDrawable
+Dim fb,fb1 As  FloatingActionButton
+Dim res As XmlLayoutBuilder
+Dim copy As BClipboard
+	Dim iv As ImageView
+
+	Dim ph As Phone
+	Dim Banner As AdView
+	Dim Interstitial As InterstitialAd
+	Dim ft As  Label
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+		Banner.Initialize("Banner"," ca-app-pub-4173348573252986/4847019357")
+		Banner.LoadAd
+		Activity.AddView(Banner,0%x,100%y - 80dip,100%x,50dip)
+		
+		Interstitial.Initialize("Interstitial","ca-app-pub-4173348573252986/6323752558")
+		Interstitial.LoadAd
+		
+		ad1.Initialize("ad1",100)
+		ad1.Enabled = False
+		ad2.Initialize("ad2",15000)
+		ad2.Enabled = True
+
+	ph.SetScreenOrientation(1)
+	
+	Activity.LoadLayout("Lay1")
+	fb.Icon = res.GetDrawable("ic_add_white_24dp")
+	fb.HideOffset = 100%y - fb.Top
+	fb.Hide(False)
+	fb.Show(True)
+	
+	fb1.Icon = res.GetDrawable("about")
+	fb1.HideOffset = 100%y - fb.Top
+	fb1.Hide(False)
+	fb1.Show(True)
+	
+	Activity.Color = Colors.White
+	bbg.Initialize(Colors.Black,15)
+	
+b1.Initialize("b1")
+b1.Text = "Telenor"
+b1.Background = bbg
+Activity.AddView(b1,20%x,1%y,60%x,50dip)
+
+b2.Initialize("b2")
+b2.Text = "Ooredoo"
+b2.Background = bbg
+Activity.AddView(b2,20%x,(b1.Height+b1.Top)+1%y,60%x,50dip)
+
+b3.Initialize("b3")
+b3.Text = "MecTel"
+b3.Background = bbg
+Activity.AddView(b3,20%x,(b2.Top+b2.Height)+1%y,60%x,50dip)
+
+b4.Initialize("b4")
+b4.Text = "MPT CDMA"
+b4.Background = bbg
+Activity.AddView(b4,20%x,(b3.Top+b3.Height)+1%y,60%x,50dip)
+
+b5.Initialize("b5")
+b5.Text = "MPT WCDMA/GSM"
+b5.Background = bbg
+Activity.AddView(b5,20%x,(b4.Top+b4.Height)+1%y,60%x,50dip)
+
+iv.Initialize("")
+iv.Bitmap = LoadBitmap(File.DirAssets,"icon.png")
+iv.Gravity = Gravity.FILL
+Activity.AddView(iv,50%x - 60dip,(b5.Top+b5.Height)+3%y,120dip,120dip)
+
+ft.Initialize("ft")
+ft.Text = "Powered By Myanmar Android Apps"
+	ft.TextColor = 0xFF008038
+	ft.Gravity = Gravity.CENTER
+	Activity.AddView(ft,0%x,95%y,100%x,5%y)
+End Sub
+
+Sub f1_Click
+	ToastMessageShow("App Update နွင့္ App အသစ္ေတြ " & CRLF & "Facebook ကေနဖတ္ရူ့သိနိုင္ဖို့" &CRLF& "Myanmar Android Apps ကို Like ထားလိုက္ပါ။",True)
+	Try
+		Dim Facebook As Intent
+		Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+		StartActivity(Facebook)
+ 
+	Catch
+
+		Dim i As Intent
+		i.Initialize(i.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+		StartActivity(i)
+	End Try
+End Sub
+
+Sub b1_Click
+	If ph.SdkVersion > 19 Then
+		ad1.Enabled = True
+	End If
+StartActivity(Telenor)
+End Sub
+
+Sub b2_Click
+	If ph.SdkVersion > 19 Then
+		ad1.Enabled = True
+	End If
+	StartActivity(Ooredoo)
+End Sub
+
+Sub b3_Click
+	If ph.SdkVersion > 19 Then
+		ad1.Enabled = True
+	End If
+	StartActivity(MecTel)
+End Sub
+
+Sub b4_Click
+	If ph.SdkVersion > 19 Then
+		ad1.Enabled = True
+	End If
+	StartActivity(MPTCDMA)
+End Sub
+
+Sub b5_Click
+	If ph.SdkVersion > 19 Then
+		ad1.Enabled = True
+	End If
+	StartActivity(MPTGSM)
+End Sub
+
+Sub fb_Click
+	ToastMessageShow("App Update နွင့္ App အသစ္ေတြ " & CRLF & "Facebook ကေနဖတ္ရူ့သိနိုင္ဖို့" &CRLF& "Myanmar Android Apps ကို Like ထားလိုက္ပါ။",True)
+	Try
+		Dim Facebook As Intent
+		Facebook.Initialize(Facebook.ACTION_VIEW, "fb://page/627699334104477")
+		StartActivity(Facebook)
+ 
+	Catch
+
+		Dim i As Intent
+		i.Initialize(i.ACTION_VIEW, "https://m.facebook.com/MmFreeAndroidApps")
+		StartActivity(i)
+	End Try
+End Sub
+
+Sub fb1_Click
+	Dim ShareIt As Intent
+	copy.clrText
+	copy.setText("All in One Myanmar APN Setting Apps" &CRLF & "Download Free at : www.htetznaing.com/search?q=Myanmar+APNs" &CRLF & " #Ht3tzN4ing" &CRLF & " #MyanmarAndroidApps")
+	ShareIt.Initialize (ShareIt.ACTION_SEND,"")
+	ShareIt.SetType ("text/plain")
+	ShareIt.PutExtra ("android.intent.extra.TEXT",copy.getText)
+	ShareIt.PutExtra ("android.intent.extra.SUBJECT","Get Free!!")
+	ShareIt.WrapAsIntentChooser("Share App Via...")
+	StartActivity (ShareIt)
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub ad1_Tick
+	If Interstitial.Ready Then Interstitial.Show Else Interstitial.LoadAd
+	ad1.Enabled = False
+End Sub
+
+Sub ad2_Tick
+	If Interstitial.Ready Then Interstitial.Show Else Interstitial.LoadAd
+End Sub
+
+Sub Interstitial_AdClosed
+	Interstitial.LoadAd
+End Sub
